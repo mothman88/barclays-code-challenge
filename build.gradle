@@ -23,11 +23,21 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.h2database:h2'
+	implementation 'org.flywaydb:flyway-core'
+
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock:4.3.0'
 	testImplementation 'io.rest-assured:rest-assured:5.5.6'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -95,3 +105,13 @@ tasks.register('acceptanceTest', Test) {
 	useJUnitPlatform() 
 }
 
+// ...existing code...
+import org.gradle.api.tasks.Copy
+
+// ...existing code...
+
+// ensure resource copy tasks don't fail on duplicate migration/test fixture files
+tasks.withType(Copy).configureEach {
+    // change to INCLUDE if you want multiple copies merged; EXCLUDE will keep the first encountered file
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
