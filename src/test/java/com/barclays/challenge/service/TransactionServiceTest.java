@@ -6,6 +6,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import com.barclays.challenge.exception.UnprocessableEntityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
@@ -68,7 +70,7 @@ public class TransactionServiceTest {
         req.setType("withdrawal");
         req.setAmount(20.0);
 
-        assertThrows(ResourceNotFoundException.class, () -> transactionService.createTransaction("acc2", req, "u"));
+        assertThrows(UnprocessableEntityException.class, () -> transactionService.createTransaction("acc2", req, "u"));
     }
 
     @Test
