@@ -1,6 +1,7 @@
 package com.barclays.challenge.repository;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,18 +25,21 @@ public class TransactionRepositoryIntegrationTest {
     @Test
     public void findByAccountNumber_returnsTransactions_forGivenAccount() {
         Transaction t1 = new Transaction();
+        t1.setId(UUID.randomUUID().toString());
         t1.setAccountNumber("ACC-1");
         t1.setType("deposit");
         t1.setAmount(10.0);
         t1.setUserId("u1");
 
         Transaction t2 = new Transaction();
+        t2.setId(UUID.randomUUID().toString());
         t2.setAccountNumber("ACC-1");
         t2.setType("withdrawal");
         t2.setAmount(5.0);
         t2.setUserId("u1");
 
         Transaction tOther = new Transaction();
+        tOther.setId(UUID.randomUUID().toString());
         tOther.setAccountNumber("ACC-2");
         tOther.setType("deposit");
         tOther.setAmount(7.0);
