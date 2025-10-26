@@ -1,10 +1,13 @@
 package com.barclays.challenge.repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.barclays.challenge.model.Address;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -24,9 +27,18 @@ public class UserRepositoryIntegrationTest {
     @Test
     public void findByEmailAndPassword_returnsUser_whenPresent() {
         User u = new User();
+        u.setId(UUID.randomUUID().toString());
         u.setEmail("test@example.com");
         u.setPassword("secret");
         u.setName("Tester");
+        u.setPhoneNumber("+07777777");
+        u.setAddress(Address.builder()
+                        .line1("line1")
+                        .line2("line2")
+                        .postcode("postcode")
+                        .town("town")
+                        .county("county")
+                .build());
         // persist
         entityManager.persistAndFlush(u);
 
